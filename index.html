@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QRZ Bio - On/Off Air Toggle</title>
+    <title>On the Air Status</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -12,80 +12,84 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+            background-color: white; /* White background */
             text-align: center;
+            padding: 10px;
         }
 
         #status {
-            font-size: 2em;
-            margin-top: 20px;
+            font-size: 2.5em; /* Larger text for visibility */
+            margin-left: 20px; /* Space between button and text */
+            display: inline-block;
         }
 
         .on-air {
-            color: red; /* On Air status - red color */
-            animation: blink 1s step-end infinite;
+            color: red; /* Red for On Air */
+            animation: blink 1s step-end infinite; /* Blink animation */
         }
 
         .off-air {
-            color: green; /* Off Air status - green color */
+            color: green; /* Green for Off Air */
+            animation: none; /* No animation for Off Air */
         }
 
-        button {
-            font-size: 1.2em;
-            padding: 10px 20px;
-            background-color: #333;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #555;
-        }
-
+        /* Blinking effect */
         @keyframes blink {
             50% {
                 opacity: 0;
             }
         }
-    </style>
-    <script>
-        let isOnAir = false; // Initial state is Off Air
-        
-        function toggleOnAirStatus() {
-            const statusElement = document.getElementById("status");
 
-            isOnAir = !isOnAir; // Toggle state
-
-            if (isOnAir) {
-                statusElement.innerHTML = "On the Air";
-                statusElement.className = "on-air"; // Apply the on-air class
-            } else {
-                statusElement.innerHTML = "Off the Air";
-                statusElement.className = "off-air"; // Apply the off-air class
-            }
-
-            // Call the API to update the status (not functional as QRZ API requires callsign)
-            updateQRZStatus(isOnAir);
+        button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border: none;
+            background-color: white; /* Keep the button background white */
+            color: white; /* Make button text invisible */
+            border-radius: 5px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            visibility: visible; /* Ensure button is clickable */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+            width: 100px; /* Keep button width consistent */
+            height: 50px; /* Consistent height for the button */
         }
 
-        // Update QRZ status (this is a simulation, API would be real)
-        function updateQRZStatus(isOnAir) {
-            const apiKey = "EDA3-4DE0-4447-2DFD"; // Your QRZ API key
-            const callsign = "YOUR_CALLSIGN"; // Replace with your QRZ callsign
+        /* Adding radio icon */
+        button::before {
+            content: "\2022"; /* Unicode character for radio bullet */
+            font-size: 2.5em;
+            margin-right: 0px;
+            color: white; /* Make radio icon white */
+        }
 
-            // Simulate sending status update to QRZ API (QRZ does not actually update via frontend)
-            console.log(`Sending On Air status to QRZ API for ${callsign}: ${isOnAir ? 'On Air' : 'Off Air'}`);
-            // You can call a backend service here to actually update your QRZ status (like using a server-side script)
+        /* Button styling when On Air */
+        /* The button stays white and text invisible in all states */
+
+        /* Active state for the button */
+        button:active {
+            background-color: #ddd; /* Subtle feedback when clicked */
+        }
+    </style>
+    <script>
+        function toggleOnAirStatus() {
+            const statusElement = document.getElementById("status");
+            const buttonElement = document.getElementById("toggleButton");
+
+            // Toggle between On-Air and Off-Air status
+            if (statusElement.innerHTML === "Off the Air") {
+                statusElement.innerHTML = "On the Air";
+                statusElement.className = "on-air"; // Make status blink
+            } else {
+                statusElement.innerHTML = "Off the Air";
+                statusElement.className = "off-air"; // Keep status static
+            }
         }
     </script>
 </head>
 <body>
-    <div>
-        <button onclick="toggleOnAirStatus()">Toggle On/Off Air</button>
-        <div id="status" class="off-air">Off the Air</div>
-    </div>
+    <button id="toggleButton" class="off-air-button" onclick="toggleOnAirStatus()"></button> <!-- Invisible button text, white background -->
+    <p id="status" class="off-air">Off the Air</p> <!-- Status text -->
 </body>
 </html>

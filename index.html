@@ -8,10 +8,9 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            flex-direction: column; /* Stack items vertically */
-            justify-content: space-between; /* Space between top and bottom */
+            justify-content: center;
             align-items: center;
-            height: 100vh; /* Full screen height */
+            height: 100vh;
             margin: 0;
             background-color: white; /* White background */
             text-align: center;
@@ -20,8 +19,7 @@
 
         #status {
             font-size: 2.5em; /* Larger text for visibility */
-            margin-bottom: 20px;
-            padding: 10px 20px;
+            margin-left: 20px; /* Space between button and text */
             display: inline-block;
         }
 
@@ -34,22 +32,18 @@
         }
 
         button {
-            font-size: 1em; /* Make button text visible */
+            font-size: 0; /* Make the text invisible */
             padding: 10px 20px;
             border: none;
-            background-color: #007bff; /* Blue color */
-            color: white;
+            background-color: white; /* Invisible button */
+            color: white; /* Make button text invisible */
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 20px;
-        }
-
-        button:hover {
-            background-color: #0056b3; /* Darker blue when hovered */
+            visibility: hidden; /* Hide the button but keep it clickable */
         }
 
         button:active {
-            background-color: #004085; /* Even darker blue when clicked */
+            background-color: #ddd; /* Feedback when clicked */
         }
     </style>
     <script>
@@ -61,19 +55,17 @@
             if (statusElement.innerHTML === "Off the Air") {
                 statusElement.innerHTML = "On the Air";
                 statusElement.className = "on-air";
-                buttonElement.innerHTML = "Go Off Air";
+                buttonElement.innerHTML = "Go Off Air"; // This is just for toggling
             } else {
                 statusElement.innerHTML = "Off the Air";
                 statusElement.className = "off-air";
-                buttonElement.innerHTML = "Go On Air";
+                buttonElement.innerHTML = "Go On Air"; // This is just for toggling
             }
         }
     </script>
 </head>
 <body>
-    <div>
-        <p id="status" class="off-air">Off the Air</p> <!-- Status text -->
-    </div>
-    <button id="toggleButton" onclick="toggleOnAirStatus()">Go On Air</button> <!-- Visible button at bottom -->
+    <button id="toggleButton" onclick="toggleOnAirStatus()">Go On Air</button> <!-- Invisible button -->
+    <p id="status" class="off-air">Off the Air</p> <!-- Status text -->
 </body>
 </html>

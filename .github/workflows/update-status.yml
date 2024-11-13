@@ -2,6 +2,11 @@ name: Update Status
 
 on:
   workflow_dispatch:  # Allows manually triggering the workflow via GitHub UI
+    inputs:
+      status:
+        description: 'Set the On/Off Air status'
+        required: true
+        default: 'off-air'
 
 jobs:
   update_status:
@@ -15,14 +20,9 @@ jobs:
         run: |
           # Create the status file content with the new status (On Air or Off Air)
           echo "Updating status file..."
-          STATUS="off-air"  # Default to off-air; this can be toggled dynamically later
+          STATUS="${{ github.event.inputs.status }}"  # Use input passed from the frontend
 
-          # Modify the status based on input
-          if [ "${{ github.event.inputs.status }}" == "on-air" ]; then
-            STATUS="on-air"
-          fi
-
-          # Update status.json file
+          # Update the status.json file
           echo "{
             \"status\": \"${STATUS}\",
             \"last_updated\": \"$(date -u +"%Y-%m-%dT%H:%M:%SZ")\"
@@ -36,4 +36,4 @@ jobs:
           git commit -m "Update status to ${STATUS}"
           git push
         env:
-          GITHUB_TOKEN: ${{ secrets.RADIO }}  # Use your GitHub secret token
+          GITHUB_TOKEN: ${{ secrets.RADIO }}  # Use your GitHub secret token here

@@ -21,14 +21,22 @@
             font-size: 2.5em; /* Larger text for visibility */
             margin-left: 20px; /* Space between button and text */
             display: inline-block;
+            animation: blink 1s step-end infinite; /* Blink animation */
         }
 
         .on-air {
-            color: green;
+            color: red; /* Red for On Air */
         }
 
         .off-air {
-            color: red;
+            color: green; /* Green for Off Air */
+        }
+
+        /* Blinking effect */
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
         }
 
         button {
@@ -55,7 +63,7 @@
 
         /* Button styling when On Air */
         .on-air-button {
-            background-color: black; /* Button turns black when on air */
+            background-color: red; /* Button turns red when on air */
             color: white; /* Text remains white when on air */
         }
 
@@ -79,7 +87,7 @@
             if (statusElement.innerHTML === "Off the Air") {
                 statusElement.innerHTML = "On the Air";
                 statusElement.className = "on-air";
-                buttonElement.className = "on-air-button"; // Update button to black when on air
+                buttonElement.className = "on-air-button"; // Update button to red when on air
                 buttonElement.innerHTML = "Go Off Air"; // Button text for the toggle
             } else {
                 statusElement.innerHTML = "Off the Air";

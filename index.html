@@ -31,7 +31,7 @@
             const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/actions/workflows/update-status.yml/dispatches`, {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer YOUR_GITHUB_TOKEN`,  // GitHub token (use your token securely on the backend)
+                    'Authorization': `Bearer YOUR_GITHUB_TOKEN`,  // This is only for testing; do not use here!
                     'Accept': 'application/vnd.github.v3+json',
                     'Content-Type': 'application/json',
                 },

@@ -12,7 +12,7 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: white; /* White background */
             text-align: center;
         }
 
@@ -20,19 +20,15 @@
             font-size: 2.5em; /* Larger text for visibility */
             margin-bottom: 20px;
             padding: 10px 20px;
-            background-color: #fff;
-            border-radius: 5px;
             display: inline-block;
         }
 
         .on-air {
             color: green;
-            background-color: #e0f7e0; /* Light green */
         }
 
         .off-air {
             color: red;
-            background-color: #fbe0e0; /* Light red */
         }
 
         button {
@@ -43,12 +39,11 @@
             color: white; /* Make button text invisible */
             border-radius: 5px;
             cursor: pointer;
-            position: absolute;
-            visibility: hidden; /* Hide the text, button still works */
+            visibility: hidden; /* Hide the button text but keep it functional */
         }
 
         button:active {
-            background-color: #ddd; /* Subtle feedback when clicked */
+            background-color: #ddd; /* Feedback when clicked */
         }
     </style>
     <script>
@@ -60,11 +55,11 @@
             if (statusElement.innerHTML === "Off the Air") {
                 statusElement.innerHTML = "On the Air";
                 statusElement.className = "on-air";
-                buttonElement.innerHTML = "Go Off Air"; // This is just for the toggle function
+                buttonElement.innerHTML = "Go Off Air"; // Button text is just for toggling
             } else {
                 statusElement.innerHTML = "Off the Air";
                 statusElement.className = "off-air";
-                buttonElement.innerHTML = "Go On Air"; // This is just for the toggle function
+                buttonElement.innerHTML = "Go On Air"; // Button text is just for toggling
             }
         }
     </script>

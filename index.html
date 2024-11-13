@@ -17,7 +17,6 @@
         const repoOwner = 'srg774';  // Your GitHub username
         const repoName = 'on-the-air-status';  // Your repository name
         const filePath = 'status.json';  // Path to the status file
-        const githubToken = 'your-github-token';  // Replace with your GitHub token
 
         // Function to fetch the current status from GitHub
         async function getStatus() {
@@ -27,30 +26,37 @@
             document.getElementById('status-display').textContent = statusFile.status;
         }
 
-        // Function to update the status on GitHub
-        async function updateStatus(newStatus) {
-            // Fetch the current file content
-            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`);
-            const data = await response.json();
-            const fileContent = JSON.parse(atob(data.content));  // Decode base64 content
-
-            // Update the status field
-            fileContent.status = newStatus;
-            fileContent.last_updated = new Date().toISOString();
-
-            // Prepare the update request
-            const updateRequest = {
-                message: `Update status to ${newStatus}`,
-                content: btoa(JSON.stringify(fileContent)),  // Encode content in base64
-                sha: data.sha  // The file's SHA to update the correct file
-            };
-
-            // Make the request to GitHub API
-            await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
-                method: 'PUT',
+        // Function to trigger GitHub Actions to update status
+        async function triggerGitHubAction(status) {
+            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/actions/workflows/update-status.yml/dispatches`, {
+                method: 'POST',
                 headers: {
-                    'Authorization': `token ${githubToken}`,
-                    'Content-Type': 'application/json'
+                    'Authorization': `Bearer YOUR_GITHUB_TOKEN`,  // GitHub token (use your token securely on the backend)
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(updateRequest)
+                body: JSON.stringify({
+                    ref: 'main',  // Branch name where the workflow will run
+                    inputs: {
+                        status: status
+                    }
+                })
             });
+
+            if (response.ok) {
+                alert('Status updated successfully!');
+                location.reload();  // Reload the page to fetch the updated status
+            } else {
+                alert('Failed to update status');
+            }
+        }
+
+        // Set up event listeners
+        document.getElementById('on-air-btn').addEventListener('click', () => triggerGitHubAction('on-air'));
+        document.getElementById('off-air-btn').addEventListener('click', () => triggerGitHubAction('off-air'));
+
+        // Fetch and display the current status when the page loads
+        getStatus();
+    </script>
+</body>
+</html>

@@ -5,9 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>On the Air Status</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
         #status {
-            font-size: 1.5em;
+            font-size: 2.5em; /* Larger text for visibility */
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        .on-air {
             color: green;
+            background-color: #e0f7e0; /* Light green */
+        }
+
+        .off-air {
+            color: red;
+            background-color: #fbe0e0; /* Light red */
+        }
+
+        button {
+            font-size: 0; /* Make the text invisible */
+            padding: 10px 20px;
+            border: none;
+            background-color: white;
+            color: white; /* Make button text invisible */
+            border-radius: 5px;
+            cursor: pointer;
+            position: absolute;
+            visibility: hidden; /* Hide the text, button still works */
+        }
+
+        button:active {
+            background-color: #ddd; /* Subtle feedback when clicked */
         }
     </style>
     <script>
@@ -18,19 +59,20 @@
             // Toggle between On-Air and Off-Air status
             if (statusElement.innerHTML === "Off the Air") {
                 statusElement.innerHTML = "On the Air";
-                statusElement.style.color = "green";
-                buttonElement.innerHTML = "Go Off Air";
+                statusElement.className = "on-air";
+                buttonElement.innerHTML = "Go Off Air"; // This is just for the toggle function
             } else {
                 statusElement.innerHTML = "Off the Air";
-                statusElement.style.color = "red";
-                buttonElement.innerHTML = "Go On Air";
+                statusElement.className = "off-air";
+                buttonElement.innerHTML = "Go On Air"; // This is just for the toggle function
             }
         }
     </script>
 </head>
 <body>
-    <h1>QRZ On the Air Status</h1>
-    <p id="status" style="color: red;">Off the Air</p>
-    <button id="toggleButton" onclick="toggleOnAirStatus()">Go On Air</button>
+    <div>
+        <p id="status" class="off-air">Off the Air</p> <!-- Status text -->
+        <button id="toggleButton" onclick="toggleOnAirStatus()">Go On Air</button> <!-- Invisible button, functional -->
+    </div>
 </body>
 </html>

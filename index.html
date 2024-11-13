@@ -8,12 +8,14 @@
         body {
             font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column; /* Stack items vertically */
+            justify-content: space-between; /* Space between top and bottom */
             align-items: center;
-            height: 100vh;
+            height: 100vh; /* Full screen height */
             margin: 0;
             background-color: white; /* White background */
             text-align: center;
+            padding: 10px;
         }
 
         #status {
@@ -32,18 +34,22 @@
         }
 
         button {
-            font-size: 0; /* Make the text invisible */
+            font-size: 1em; /* Make button text visible */
             padding: 10px 20px;
             border: none;
-            background-color: white;
-            color: white; /* Make button text invisible */
+            background-color: #007bff; /* Blue color */
+            color: white;
             border-radius: 5px;
             cursor: pointer;
-            visibility: hidden; /* Hide the button text but keep it functional */
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker blue when hovered */
         }
 
         button:active {
-            background-color: #ddd; /* Feedback when clicked */
+            background-color: #004085; /* Even darker blue when clicked */
         }
     </style>
     <script>
@@ -55,11 +61,11 @@
             if (statusElement.innerHTML === "Off the Air") {
                 statusElement.innerHTML = "On the Air";
                 statusElement.className = "on-air";
-                buttonElement.innerHTML = "Go Off Air"; // Button text is just for toggling
+                buttonElement.innerHTML = "Go Off Air";
             } else {
                 statusElement.innerHTML = "Off the Air";
                 statusElement.className = "off-air";
-                buttonElement.innerHTML = "Go On Air"; // Button text is just for toggling
+                buttonElement.innerHTML = "Go On Air";
             }
         }
     </script>
@@ -67,7 +73,7 @@
 <body>
     <div>
         <p id="status" class="off-air">Off the Air</p> <!-- Status text -->
-        <button id="toggleButton" onclick="toggleOnAirStatus()">Go On Air</button> <!-- Invisible button, functional -->
     </div>
+    <button id="toggleButton" onclick="toggleOnAirStatus()">Go On Air</button> <!-- Visible button at bottom -->
 </body>
 </html>

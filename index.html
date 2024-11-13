@@ -52,26 +52,26 @@
             align-items: center;
             visibility: visible; /* Ensure button is clickable */
             transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+            width: 100px; /* Keep button width consistent */
+            height: 50px; /* Consistent height for the button */
         }
 
         /* Adding radio icon */
         button::before {
             content: "\2022"; /* Unicode character for radio bullet */
-            font-size: 1.5em;
-            margin-right: 10px;
+            font-size: 2.5em;
+            margin-right: 0px;
             color: white; /* Make radio icon white */
         }
 
         /* Button styling when On Air */
         .on-air-button {
             background-color: red; /* Button turns red when on air */
-            color: white; /* Text remains white when on air */
         }
 
         /* Button styling when Off Air */
         .off-air-button {
             background-color: white; /* Stay white when off air */
-            color: white; /* Text remains invisible */
         }
 
         /* Active state for the button */
@@ -89,18 +89,16 @@
                 statusElement.innerHTML = "On the Air";
                 statusElement.className = "on-air"; // Make status blink
                 buttonElement.className = "on-air-button"; // Update button to red when on air
-                buttonElement.innerHTML = "Go Off Air"; // Button text for the toggle
             } else {
                 statusElement.innerHTML = "Off the Air";
                 statusElement.className = "off-air"; // Keep status static
                 buttonElement.className = "off-air-button"; // Button stays white when off air
-                buttonElement.innerHTML = "Go On Air"; // Button text for the toggle
             }
         }
     </script>
 </head>
 <body>
-    <button id="toggleButton" class="off-air-button" onclick="toggleOnAirStatus()">Go On Air</button> <!-- Invisible button text, white background -->
+    <button id="toggleButton" class="off-air-button" onclick="toggleOnAirStatus()"></button> <!-- Invisible button text, white background -->
     <p id="status" class="off-air">Off the Air</p> <!-- Status text -->
 </body>
 </html>

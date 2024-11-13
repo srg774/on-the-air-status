@@ -1,7 +1,7 @@
 name: Update Status
 
 on:
-  workflow_dispatch:  # Allows manually triggering the workflow via GitHub UI
+  workflow_dispatch:
     inputs:
       status:
         description: 'Set the On/Off Air status'
@@ -16,17 +16,26 @@ jobs:
       - name: Checkout the repository
         uses: actions/checkout@v2
 
+      - name: Check out the current status.json
+        run: cat status.json  # Print the status.json to see its current content
+
+      - name: Set up GitHub token
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
       - name: Update Status in status.json
         run: |
-          # Create the status file content with the new status (On Air or Off Air)
           echo "Updating status file..."
           STATUS="${{ github.event.inputs.status }}"  # Use input passed from the frontend
 
-          # Update the status.json file
+          # Modify the status file
           echo "{
             \"status\": \"${STATUS}\",
             \"last_updated\": \"$(date -u +"%Y-%m-%dT%H:%M:%SZ")\"
           }" > status.json
+
+          cat status.json  # Show the contents of the updated file before commit
 
       - name: Commit and push the status update
         run: |
@@ -37,3 +46,7 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.RADIO }}  # Use your GitHub secret token here
+
+      - name: Debugging - Check push result
+        run: |
+          echo "Git push attempt finished."

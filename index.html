@@ -35,18 +35,14 @@
             font-size: 1.2em;
             padding: 10px 20px;
             border: none;
-            background-color: white; /* Default white background */
-            color: black; /* Button text color */
+            background-color: white; /* Make button background white */
+            color: white; /* Make button text invisible */
             border-radius: 5px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            visibility: visible; /* Make button visible */
+            visibility: visible; /* Ensure button is clickable */
             transition: background-color 0.3s, color 0.3s; /* Smooth transition */
-        }
-
-        button:active {
-            background-color: #ddd; /* Subtle feedback when clicked */
         }
 
         /* Adding radio icon */
@@ -54,19 +50,24 @@
             content: "\2022"; /* Unicode character for radio bullet */
             font-size: 1.5em;
             margin-right: 10px;
-            color: black;
+            color: white; /* Make radio icon white */
         }
 
         /* Button styling when On Air */
         .on-air-button {
-            background-color: black;
-            color: white;
+            background-color: black; /* Button turns black when on air */
+            color: white; /* Text remains white when on air */
         }
 
         /* Button styling when Off Air */
         .off-air-button {
-            background-color: #e0e0e0;
-            color: black;
+            background-color: white; /* Stay white when off air */
+            color: white; /* Text remains invisible */
+        }
+
+        /* Active state for the button */
+        button:active {
+            background-color: #ddd; /* Subtle feedback when clicked */
         }
     </style>
     <script>
@@ -78,19 +79,19 @@
             if (statusElement.innerHTML === "Off the Air") {
                 statusElement.innerHTML = "On the Air";
                 statusElement.className = "on-air";
-                buttonElement.className = "on-air-button"; // Update button style to black when on air
+                buttonElement.className = "on-air-button"; // Update button to black when on air
                 buttonElement.innerHTML = "Go Off Air"; // Button text for the toggle
             } else {
                 statusElement.innerHTML = "Off the Air";
                 statusElement.className = "off-air";
-                buttonElement.className = "off-air-button"; // Button back to default when off air
+                buttonElement.className = "off-air-button"; // Button back to white when off air
                 buttonElement.innerHTML = "Go On Air"; // Button text for the toggle
             }
         }
     </script>
 </head>
 <body>
-    <button id="toggleButton" class="off-air-button" onclick="toggleOnAirStatus()">Go On Air</button> <!-- Button with radio icon -->
+    <button id="toggleButton" class="off-air-button" onclick="toggleOnAirStatus()">Go On Air</button> <!-- Invisible button text, white background -->
     <p id="status" class="off-air">Off the Air</p> <!-- Status text -->
 </body>
 </html>

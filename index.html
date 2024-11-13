@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On the Air Status</title>
+    <style>
+        #status {
+            font-size: 1.5em;
+            color: green;
+        }
+    </style>
+    <script>
+        function toggleOnAirStatus() {
+            const statusElement = document.getElementById("status");
+            const buttonElement = document.getElementById("toggleButton");
+
+            // Toggle between On-Air and Off-Air status
+            if (statusElement.innerHTML === "Off the Air") {
+                statusElement.innerHTML = "On the Air";
+                statusElement.style.color = "green";
+                buttonElement.innerHTML = "Go Off Air";
+            } else {
+                statusElement.innerHTML = "Off the Air";
+                statusElement.style.color = "red";
+                buttonElement.innerHTML = "Go On Air";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>QRZ On the Air Status</h1>
+    <p id="status" style="color: red;">Off the Air</p>
+    <button id="toggleButton" onclick="toggleOnAirStatus()">Go On Air</button>
+</body>
+</html>

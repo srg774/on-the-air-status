@@ -44,7 +44,7 @@
             font-size: 1.2em;
             padding: 10px 20px;
             border: none;
-            background-color: white; /* Make button background white */
+            background-color: white; /* Keep the button background white */
             color: white; /* Make button text invisible */
             border-radius: 5px;
             cursor: pointer;
@@ -65,14 +65,7 @@
         }
 
         /* Button styling when On Air */
-        .on-air-button {
-            background-color: red; /* Button turns red when on air */
-        }
-
-        /* Button styling when Off Air */
-        .off-air-button {
-            background-color: white; /* Stay white when off air */
-        }
+        /* The button stays white and text invisible in all states */
 
         /* Active state for the button */
         button:active {
@@ -88,11 +81,9 @@
             if (statusElement.innerHTML === "Off the Air") {
                 statusElement.innerHTML = "On the Air";
                 statusElement.className = "on-air"; // Make status blink
-                buttonElement.className = "on-air-button"; // Update button to red when on air
             } else {
                 statusElement.innerHTML = "Off the Air";
                 statusElement.className = "off-air"; // Keep status static
-                buttonElement.className = "off-air-button"; // Button stays white when off air
             }
         }
     </script>

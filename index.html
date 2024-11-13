@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>On/Off Air Status Toggle</title>
+</head>
+<body>
+    <h1>Toggle On Air / Off Air Status</h1>
+
+    <p>Current Status: <span id="status-display">Loading...</span></p>
+
+    <button id="on-air-btn">Set to On Air</button>
+    <button id="off-air-btn">Set to Off Air</button>
+
+    <script>
+        const repoOwner = 'srg774';  // Your GitHub username
+        const repoName = 'on-the-air-status';  // Your repository name
+        const filePath = 'status.json';  // Path to the status file
+        const githubToken = 'your-github-token';  // Replace with your GitHub token
+
+        // Function to fetch the current status from GitHub
+        async function getStatus() {
+            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`);
+            const data = await response.json();
+            const statusFile = JSON.parse(atob(data.content)); // Decode base64 content
+            document.getElementById('status-display').textContent = statusFile.status;
+        }
+
+        // Function to update the status on GitHub
+        async function updateStatus(newStatus) {
+            // Fetch the current file content
+            const response = await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`);
+            const data = await response.json();
+            const fileContent = JSON.parse(atob(data.content));  // Decode base64 content
+
+            // Update the status field
+            fileContent.status = newStatus;
+            fileContent.last_updated = new Date().toISOString();
+
+            // Prepare the update request
+            const updateRequest = {
+                message: `Update status to ${newStatus}`,
+                content: btoa(JSON.stringify(fileContent)),  // Encode content in base64
+                sha: data.sha  // The file's SHA to update the correct file
+            };
+
+            // Make the request to GitHub API
+            await fetch(`https://api.github.com/repos/${repoOwner}/${repoName}/contents/${filePath}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `token ${githubToken}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updateRequest)
+            });
